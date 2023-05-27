@@ -1,9 +1,10 @@
+// ignore_for_file: unused_element
+
 library flutter_datetime_picker;
 
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_datetime_picker/src/datetime_picker_theme.dart';
 import 'package:flutter_datetime_picker/src/date_model.dart';
 import 'package:flutter_datetime_picker/src/i18n_model.dart';
@@ -22,15 +23,15 @@ class DatePicker {
   ///
   static Future<DateTime?> showDatePicker(
     BuildContext context, {
-    bool showTitleActions: true,
+    bool showTitleActions = true,
     DateTime? minTime,
     DateTime? maxTime,
     DateChangedCallback? onChanged,
     DateChangedCallback? onConfirm,
     DateCancelledCallback? onCancel,
-    locale: LocaleType.en,
+    locale = LocaleType.en,
     DateTime? currentTime,
-    DatePickerTheme? theme,
+    FlutterDatePickerTheme? theme,
   }) async {
     return await Navigator.push(
       context,
@@ -41,8 +42,7 @@ class DatePicker {
         onCancel: onCancel,
         locale: locale,
         theme: theme,
-        barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
         pickerModel: DatePickerModel(
           currentTime: currentTime,
           maxTime: maxTime,
@@ -58,14 +58,14 @@ class DatePicker {
   ///
   static Future<DateTime?> showTimePicker(
     BuildContext context, {
-    bool showTitleActions: true,
-    bool showSecondsColumn: true,
+    bool showTitleActions = true,
+    bool showSecondsColumn = true,
     DateChangedCallback? onChanged,
     DateChangedCallback? onConfirm,
     DateCancelledCallback? onCancel,
-    locale: LocaleType.en,
+    locale = LocaleType.en,
     DateTime? currentTime,
-    DatePickerTheme? theme,
+    FlutterDatePickerTheme? theme,
   }) async {
     return await Navigator.push(
       context,
@@ -76,8 +76,7 @@ class DatePicker {
         onCancel: onCancel,
         locale: locale,
         theme: theme,
-        barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
         pickerModel: TimePickerModel(
           currentTime: currentTime,
           locale: locale,
@@ -92,13 +91,13 @@ class DatePicker {
   ///
   static Future<DateTime?> showTime12hPicker(
     BuildContext context, {
-    bool showTitleActions: true,
+    bool showTitleActions = true,
     DateChangedCallback? onChanged,
     DateChangedCallback? onConfirm,
     DateCancelledCallback? onCancel,
-    locale: LocaleType.en,
+    locale = LocaleType.en,
     DateTime? currentTime,
-    DatePickerTheme? theme,
+    FlutterDatePickerTheme? theme,
   }) async {
     return await Navigator.push(
       context,
@@ -109,8 +108,7 @@ class DatePicker {
         onCancel: onCancel,
         locale: locale,
         theme: theme,
-        barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
         pickerModel: Time12hPickerModel(
           currentTime: currentTime,
           locale: locale,
@@ -124,15 +122,15 @@ class DatePicker {
   ///
   static Future<DateTime?> showDateTimePicker(
     BuildContext context, {
-    bool showTitleActions: true,
+    bool showTitleActions = true,
     DateTime? minTime,
     DateTime? maxTime,
     DateChangedCallback? onChanged,
     DateChangedCallback? onConfirm,
     DateCancelledCallback? onCancel,
-    locale: LocaleType.en,
+    locale = LocaleType.en,
     DateTime? currentTime,
-    DatePickerTheme? theme,
+    FlutterDatePickerTheme? theme,
   }) async {
     return await Navigator.push(
       context,
@@ -143,8 +141,7 @@ class DatePicker {
         onCancel: onCancel,
         locale: locale,
         theme: theme,
-        barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
         pickerModel: DateTimePickerModel(
           currentTime: currentTime,
           minTime: minTime,
@@ -160,13 +157,13 @@ class DatePicker {
   ///
   static Future<DateTime?> showPicker(
     BuildContext context, {
-    bool showTitleActions: true,
+    bool showTitleActions = true,
     DateChangedCallback? onChanged,
     DateChangedCallback? onConfirm,
     DateCancelledCallback? onCancel,
-    locale: LocaleType.en,
+    locale = LocaleType.en,
     BasePickerModel? pickerModel,
-    DatePickerTheme? theme,
+    FlutterDatePickerTheme? theme,
   }) async {
     return await Navigator.push(
       context,
@@ -177,8 +174,7 @@ class DatePicker {
         onCancel: onCancel,
         locale: locale,
         theme: theme,
-        barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
         pickerModel: pickerModel,
       ),
     );
@@ -191,13 +187,13 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
     this.onChanged,
     this.onConfirm,
     this.onCancel,
-    DatePickerTheme? theme,
+    FlutterDatePickerTheme? theme,
     this.barrierLabel,
     this.locale,
     RouteSettings? settings,
     BasePickerModel? pickerModel,
   })  : this.pickerModel = pickerModel ?? DatePickerModel(),
-        this.theme = theme ?? DatePickerTheme(),
+        this.theme = theme ?? FlutterDatePickerTheme(),
         super(settings: settings);
 
   final bool? showTitleActions;
@@ -205,7 +201,7 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
   final DateChangedCallback? onConfirm;
   final DateCancelledCallback? onCancel;
   final LocaleType? locale;
-  final DatePickerTheme theme;
+  final FlutterDatePickerTheme theme;
   final BasePickerModel pickerModel;
 
   @override
@@ -225,14 +221,13 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
   @override
   AnimationController createAnimationController() {
     assert(_animationController == null);
-    _animationController =
-        BottomSheet.createAnimationController(navigator!.overlay!);
+    _animationController = BottomSheet.createAnimationController(navigator!.overlay!);
     return _animationController!;
   }
 
   @override
-  Widget buildPage(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation) {
+  Widget buildPage(
+      BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
     Widget bottomSheet = MediaQuery.removePadding(
       context: context,
       removeTop: true,
@@ -271,9 +266,7 @@ class _DatePickerComponent extends StatefulWidget {
 }
 
 class _DatePickerState extends State<_DatePickerComponent> {
-  late FixedExtentScrollController leftScrollCtrl,
-      middleScrollCtrl,
-      rightScrollCtrl;
+  late FixedExtentScrollController leftScrollCtrl, middleScrollCtrl, rightScrollCtrl;
 
   @override
   void initState() {
@@ -283,17 +276,17 @@ class _DatePickerState extends State<_DatePickerComponent> {
 
   void refreshScrollOffset() {
 //    print('refreshScrollOffset ${widget.pickerModel.currentRightIndex()}');
-    leftScrollCtrl = FixedExtentScrollController(
-        initialItem: widget.pickerModel.currentLeftIndex());
-    middleScrollCtrl = FixedExtentScrollController(
-        initialItem: widget.pickerModel.currentMiddleIndex());
-    rightScrollCtrl = FixedExtentScrollController(
-        initialItem: widget.pickerModel.currentRightIndex());
+    leftScrollCtrl =
+        FixedExtentScrollController(initialItem: widget.pickerModel.currentLeftIndex());
+    middleScrollCtrl =
+        FixedExtentScrollController(initialItem: widget.pickerModel.currentMiddleIndex());
+    rightScrollCtrl =
+        FixedExtentScrollController(initialItem: widget.pickerModel.currentRightIndex());
   }
 
   @override
   Widget build(BuildContext context) {
-    DatePickerTheme theme = widget.route.theme;
+    FlutterDatePickerTheme theme = widget.route.theme;
     return GestureDetector(
       child: AnimatedBuilder(
         animation: widget.route.animation!,
@@ -326,7 +319,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
     }
   }
 
-  Widget _renderPickerView(DatePickerTheme theme) {
+  Widget _renderPickerView(FlutterDatePickerTheme theme) {
     Widget itemView = _renderItemView(theme);
     if (widget.route.showTitleActions == true) {
       return Column(
@@ -341,7 +334,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
 
   Widget _renderColumnView(
     ValueKey key,
-    DatePickerTheme theme,
+    FlutterDatePickerTheme theme,
     StringAtIndexCallBack stringAtIndexCB,
     ScrollController scrollController,
     int layoutProportion,
@@ -359,8 +352,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
             if (notification.depth == 0 &&
                 notification is ScrollEndNotification &&
                 notification.metrics is FixedExtentMetrics) {
-              final FixedExtentMetrics metrics =
-                  notification.metrics as FixedExtentMetrics;
+              final FixedExtentMetrics metrics = notification.metrics as FixedExtentMetrics;
               final int currentItemIndex = metrics.itemIndex;
               selectedChangedWhenScrollEnd(currentItemIndex);
             }
@@ -396,7 +388,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
     );
   }
 
-  Widget _renderItemView(DatePickerTheme theme) {
+  Widget _renderItemView(FlutterDatePickerTheme theme) {
     return Container(
       color: theme.backgroundColor,
       child: Directionality(
@@ -471,7 +463,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
   }
 
   // Title View
-  Widget _renderTitleActionsView(DatePickerTheme theme) {
+  Widget _renderTitleActionsView(FlutterDatePickerTheme theme) {
     final done = _localeDone();
     final cancel = _localeCancel();
 
@@ -543,7 +535,7 @@ class _BottomPickerLayout extends SingleChildLayoutDelegate {
   final double progress;
   final int? itemCount;
   final bool? showTitleActions;
-  final DatePickerTheme theme;
+  final FlutterDatePickerTheme theme;
   final double bottomPadding;
 
   @override
